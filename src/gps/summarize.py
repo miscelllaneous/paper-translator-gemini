@@ -1,6 +1,6 @@
 import os
 import google.generativeai as genai
-import gp_summarize.prompts as prompts
+import gps.prompts as prompts
 from . import gemini
 
 def summarize(

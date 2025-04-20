@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import google.generativeai as genai
 from .summarize import summarize
 from . import gemini  # geminiモジュールを直接インポート
-import gp_summarize.prompts as prompts
+import gps.prompts as prompts
 from pathlib import Path
 from .create_md import create_md
 import json
@@ -27,8 +27,8 @@ def setup_logging():
     log_dir.mkdir(exist_ok=True)
     
     # ログファイル名の設定（日付付き）
-    log_file = log_dir / f"gp_summarize_{datetime.now().strftime('%Y%m%d')}.log"
-    cost_log_file = log_dir / f"gp_summarize_cost_{datetime.now().strftime('%Y%m%d')}.log"
+    log_file = log_dir / f"gps_{datetime.now().strftime('%Y%m%d')}.log"
+    cost_log_file = log_dir / f"gps_cost_{datetime.now().strftime('%Y%m%d')}.log"
     
     # ログフォーマットの設定
     log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
