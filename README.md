@@ -145,30 +145,6 @@ options:
   -f, --font FONT       PDFで使用するフォント名 (デフォルト: IPAexGothic)
 ```
 
-## 出力ファイル
-
-処理が完了すると、以下のファイルが作成されます：
-
-- `output/[元のファイル名]/content.md` - PDFから抽出されたテキスト
-- `output/[元のファイル名]/translation.md` - 翻訳結果
-- `output/[元のファイル名]/summary.md` - 要約結果
-- `output/[元のファイル名]/combined.md` - 要約と翻訳を組み合わせたファイル
-- `output/[元のファイル名]/combined_output.pdf` - PDF形式の出力（--convert-pdfオプション使用時）
-
-## ログ
-
-処理ログは以下のファイルに保存されます：
-
-- `logs/gp_summarize_YYYYMMDD.log` - 詳細なログ
-- `logs/gp_summarize_cost_YYYYMMDD.log` - 料金計算用ログ
-- `logs/pdf_processing_log.json` - 処理状態のJSON形式ログ
-
-## 料金計算
-
-このツールはGemini APIの使用トークン数と料金の見積もりを自動的に計算し、ログに記録します。
-- 入力トークン：1Mあたり25円
-- 出力トークン：1Mあたり100円
-
 ## 依存パッケージ
 
 このツールは以下の主要なパッケージに依存しています：
