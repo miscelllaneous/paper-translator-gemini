@@ -4,6 +4,9 @@ from marker.output import text_from_rendered
 from marker.output import save_output
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+
 
 def create_md(filepath: str, output_dir: str = None) -> tuple[str, str]:
     """
@@ -16,6 +19,8 @@ def create_md(filepath: str, output_dir: str = None) -> tuple[str, str]:
     Returns:
         tuple[str, str]: 生成されたマークダウンの内容とマークダウンファイルの保存パス
     """
+    load_dotenv()
+    gemini_api_key = os.getenv("GEMINI_API_KEY")
     # PDFファイル名を取得（拡張子なし）
     pdf_name = Path(filepath).stem
     
@@ -31,11 +36,12 @@ def create_md(filepath: str, output_dir: str = None) -> tuple[str, str]:
     # PDFを変換
     converter = PdfConverter(
         artifact_dict=create_model_dict(),
+        config={"use_llm": True, "gemini_api_key": gemini_api_key}
     )
     rendered = converter(filepath)
     
     # 結果を保存
-    save_output(rendered, output_dir, 'result')
+    save_output(rendered, output_dir, f'{pdf_name}')
     
     # テキストと画像を抽出
     text, _, images = text_from_rendered(rendered)
@@ -43,15 +49,11 @@ def create_md(filepath: str, output_dir: str = None) -> tuple[str, str]:
     # マークダウンファイルのパス
     md_path = os.path.join(output_dir, f"{pdf_name}.md")
     
-    # マークダウンファイルに保存
-    with open(md_path, 'w', encoding='utf-8') as f:
-        f.write(text)
-    
     return text, md_path
 
 if __name__ == "__main__":
     # テスト用のコード
-    filepath = "/Users/misc/gemini-paper-summarizer/tests/Uchino and Ishihara 2021 - Type 4 persistent primitive olfactory artery ... g from the fenestrated segment of the distal anterior cerebral artery.pdf"  # ここに実際のPDFファイルのパスを指定
+    filepath = "/home/junmisc/utils/gemini-paper-summarizer/test/kurokawa-et-al-2022-major-changes-in-2021-world-health-organization-classification-of-central-nervous-system-tumors.pdf"  # ここに実際のPDFファイルのパスを指定
     text, md_path = create_md(filepath)
     print(f"マークダウンファイルが保存されました: {md_path}")
     print(f"抽出されたテキストの長さ: {len(text)}")

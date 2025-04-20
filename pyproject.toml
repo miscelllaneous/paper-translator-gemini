@@ -8,11 +8,13 @@ dependencies = [
     "google-genai>=1.11.0",
     "google-generativeai>=0.8.5",
     "marker-pdf>=1.6.2",
+    "pypandoc>=1.15",
     "python-dotenv>=1.1.0",
 ]
 
 [project.scripts]
 gp-summarize = "gp_summarize.__main__:main"
+md-to-pdf = "gp_summarize.md_to_pdf:main"
 
 [build-system]
 requires = ["hatchling"]

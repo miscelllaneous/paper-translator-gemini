@@ -3,6 +3,10 @@
 *.env
 
 *.venv
+logs/
+out/
+output/
+output1/
 
 # Virtual environment
 venv/

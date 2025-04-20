@@ -1,0 +1,124 @@
+\documentclass[b4paper,11pt,twocolumn]{article}
+
+% 日本語とUTF-8対応のためのパッケージ設定
+\usepackage{luatexja}
+\usepackage{luatexja-fontspec}
+\usepackage{amsmath}  % 数式表示のためのパッケージ
+
+% フォント設定（Noto Sans CJK JPを推奨）
+\setmainjfont[
+    BoldFont=Noto Sans CJK JP Bold,
+    YokoFeatures={JFM=prop}
+]{Noto Sans CJK JP Regular}
+
+% ページレイアウト設定（余白などを調整）
+\usepackage[top=25truemm,bottom=25truemm,left=20truemm,right=20truemm]{geometry}
+
+% カラム間のスペースを設定
+\setlength{\columnsep}{15pt}  % 段と段の間の幅を調整
+
+% ハイパーリンクの設定
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=cyan]{hyperref}
+
+% 画像挿入のためのパッケージ
+\usepackage{graphicx}
+% 画像がはみ出さないように設定
+\usepackage{float}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+% 画像の幅を自動調整
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% 画像を自動的にリサイズ
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+% 図表のサイズ管理を改善
+\usepackage{caption}
+\captionsetup{width=0.9\linewidth}
+% 図表を列内に収める
+\setlength{\intextsep}{10pt} % 図表と本文の間隔
+
+% 二段組みでの図表環境の設定
+\usepackage{etoolbox}
+\AtBeginEnvironment{figure}{\setlength{\hsize}{\columnwidth}}
+\AtBeginEnvironment{table}{\setlength{\hsize}{\columnwidth}}
+
+% 見出しスタイルの調整
+\usepackage{titlesec}
+\titleformat{\section}
+  {\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+% 表のサポート
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{calc}
+
+% コードブロック用
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\small,
+  frame=single,
+  breaklines=true,
+  columns=[l]fullflexible
+}
+
+% 段落をまたぐ内容のための設定
+\usepackage{dblfloatfix}
+
+% longtableを二段組みで使用するためのパッチ
+\makeatletter
+\let\oldlt\longtable
+\let\endoldlt\endlongtable
+\def\longtable{\@ifnextchar[\longtable@i \longtable@ii}
+\def\longtable@i[#1]{\begin{figure*}[t]
+\onecolumn
+\begin{minipage}{\textwidth}
+\oldlt[#1]}
+\def\longtable@ii{\begin{figure*}[t]
+\onecolumn
+\begin{minipage}{\textwidth}
+\oldlt}
+\def\endlongtable{\endoldlt
+\end{minipage}
+\twocolumn
+\end{figure*}}
+\makeatother
+
+% pandocで使用される\tightlistコマンドの定義
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Pandocが生成するタイトルなどの変数を受け取るための設定
+$if(title)$
+\title{$title$}
+$endif$
+$if(author)$
+\author{$author$}
+$endif$
+$if(date)$
+\date{$date$}
+$else$
+\date{\today}
+$endif$
+
+\begin{document}
+
+% タイトル出力
+$if(title)$
+\maketitle
+$endif$
+
+% 目次（必要な場合のみ）
+$if(toc)$
+\tableofcontents
+\newpage
+$endif$
+
+% Pandocからの本文挿入
+$body$
+
+\end{document}
