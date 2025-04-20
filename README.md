@@ -70,20 +70,20 @@ sudo apt-get install pandoc texlive-xetex texlive-fonts-recommended texlive-lang
 単一のPDFファイルを処理：
 
 ```bash
-gp-summarize path/to/paper.pdf
+gps path/to/paper.pdf
 ```
 
 ディレクトリ内のすべてのPDFファイルを処理：
 
 ```bash
-gp-summarize path/to/directory/
+gps path/to/directory/
 ```
 
 
 ### オプション
 
 ```
-usage: gp-summarize [-h] [--output OUTPUT] [--output-dir OUTPUT_DIR] [--suffix SUFFIX] 
+usage: gps [-h] [--output OUTPUT] [--output-dir OUTPUT_DIR] [--suffix SUFFIX] 
                    [--model MODEL] [--temperature TEMPERATURE] [--top-p TOP_P] 
                    [--top-k TOP_K] [--max-output-tokens MAX_OUTPUT_TOKENS] 
                    [--rpm RPM] [--ccache] [--convert-pdf] [--nosummary] [--version]
