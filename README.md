@@ -79,11 +79,6 @@ gp-summarize path/to/paper.pdf
 gp-summarize path/to/directory/
 ```
 
-生成されたマークダウンをPDFに変換するには、`--convert-pdf`オプションを追加します：
-
-```bash
-gp-summarize path/to/paper.pdf --convert-pdf
-```
 
 ### オプション
 
